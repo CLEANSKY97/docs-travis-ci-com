@@ -9,13 +9,11 @@ branches:
 env:
   global:
     - PATH=$HOME/.local/user/bin:$PATH
-    - NOKOGIRI_USE_SYSTEM_LIBRARIES=true # speeds up installation of html-proofer
 cache:
   pip: true
   directories:
     - vendor/bundle
     - node_modules
-    - $TRAVIS_BUILD_DIR/tmp/.htmlproofer #https://github.com/gjtorikian/html-proofer/issues/381
 addons:
   apt:
     packages:
@@ -40,7 +38,6 @@ install:
   - rvm use 2.4.3 --install
   - gem install bundler -v '< 2'
   - bundle install --deployment
-  - sudo apt-get install libcurl4-openssl-dev # required to avoid SSL errors
 script:
   - bundle exec rake test
   - xmllint --noout _site/feed.build-env-updates.xml
